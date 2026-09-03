@@ -5,7 +5,7 @@ TikTok用 世界の絶景リール 自動生成スクリプト
 流れ:
   1. data/locations.json からランダムに地点を選ぶ
   2. Pexels API で縦動画(portrait)素材を検索・ダウンロード
-  3. ffmpeg で 1080x1920 / 15秒 に整形し、地名+国名のテロップを焼き込み
+  3. ffmpeg で 1080x1920 / 15秒 に整形し、地名+国名とナレーション字幕を焼き込み
   4. assets/bgm 内のBGMをランダムに1曲ミックス
   5. output/ に mp4 として書き出す
 
@@ -113,16 +113,38 @@ def wrap_text_for_drawtext(text, width=16):
     return "\\n".join(textwrap.wrap(text, width=width))
 
 
-def build_reel(raw_video: Path, place: str, country: str, bgm: Path, out_path: Path):
+def _escape_drawtext(text: str) -> str:
+    return (
+        text.replace("\\", "\\\\")
+        .replace(":", "\\:")
+        .replace("'", "\u2019")
+        .replace("%", "\\%")
+    )
+
+
+def build_reel(raw_video: Path, place: str, country: str, narration: str, bgm: Path, out_path: Path):
     label = f"{place}  {country}".strip()
-    label_escaped = label.replace(":", "\\:").replace("'", "\u2019")
+    label_escaped = _escape_drawtext(label)
 
     vf_parts = [
         f"scale={TARGET_W}:{TARGET_H}:force_original_aspect_ratio=increase",
         f"crop={TARGET_W}:{TARGET_H}",
+        # 下部: 地名 + 国名
         f"drawtext=fontfile='{FONT_PATH}':text='{label_escaped}':"
         f"fontcolor=white:fontsize=54:borderw=3:bordercolor=black@0.7:"
         f"x=(w-text_w)/2:y=h-260",
+    ]
+
+    if narration:
+        narration_escaped = _escape_drawtext(wrap_text_for_drawtext(narration, width=14))
+        vf_parts.append(
+            f"drawtext=fontfile='{FONT_PATH}':text='{narration_escaped}':"
+            f"fontcolor=white:fontsize=42:line_spacing=10:"
+            f"box=1:boxcolor=black@0.45:boxborderw=20:"
+            f"x=(w-text_w)/2:y=160"
+        )
+
+    vf_parts += [
         "fade=t=in:st=0:d=0.5",
         f"fade=t=out:st={VIDEO_SECONDS - 0.7}:d=0.7",
     ]
@@ -167,6 +189,7 @@ def main():
 
     for i, loc in enumerate(locations, start=1):
         place, country, query = loc["place"], loc["country"], loc["query"]
+        narration = loc.get("narration", "")
         print(f"[{i}/{len(locations)}] {place}({country}) を検索中...")
         try:
             video_url = search_pexels_video(query)
@@ -179,10 +202,10 @@ def main():
             bgm = pick_bgm()
             out_name = f"{today}_{i:02d}_{place}.mp4".replace(" ", "")
             out_path = OUTPUT_DIR / out_name
-            build_reel(raw_path, place, country, bgm, out_path)
+            build_reel(raw_path, place, country, narration, bgm, out_path)
             raw_path.unlink(missing_ok=True)
 
-            results.append({"place": place, "country": country, "file": out_name})
+            results.append({"place": place, "country": country, "narration": narration, "file": out_name})
             history.append({"place": place, "country": country, "date": today})
             print(f"  -> {out_name} 生成完了")
         except Exception as e:
