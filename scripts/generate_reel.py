@@ -68,12 +68,23 @@ def pick_locations(n):
     return candidates[:n]
 
 
+COMMON_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/json",
+}
+
+
 def search_pexels_video(query):
     url = (
         "https://api.pexels.com/videos/search"
         f"?query={urllib.parse.quote(query)}&orientation=portrait&size=medium&per_page=5"
     )
-    req = urllib.request.Request(url, headers={"Authorization": PEXELS_API_KEY})
+    headers = dict(COMMON_HEADERS)
+    headers["Authorization"] = PEXELS_API_KEY
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=30) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     videos = data.get("videos", [])
@@ -86,7 +97,9 @@ def search_pexels_video(query):
 
 
 def download(url, dest: Path):
-    urllib.request.urlretrieve(url, dest)
+    req = urllib.request.Request(url, headers=COMMON_HEADERS)
+    with urllib.request.urlopen(req, timeout=60) as resp, open(dest, "wb") as f:
+        f.write(resp.read())
 
 
 def pick_bgm():
