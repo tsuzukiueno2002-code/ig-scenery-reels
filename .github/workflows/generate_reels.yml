@@ -1,0 +1,44 @@
+name: Generate Scenery Reels
+
+on:
+  schedule:
+    # JST 07:00 / 11:00 / 15:00 / 19:00 / 23:00 に相当するUTC時刻
+    - cron: "0 22,2,6,10,14 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Generate reels
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          DAILY_COUNT: "5"
+          VIDEO_SECONDS: "15"
+        run: python scripts/generate_reel.py
+
+      - name: Commit & push generated videos
+        run: |
+          git config user.name "reel-bot"
+          git config user.email "reel-bot@users.noreply.github.com"
+          git add output data/history.json
+          git diff --cached --quiet || git commit -m "chore: add scenery reels $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python scripts/notify_slack.py
