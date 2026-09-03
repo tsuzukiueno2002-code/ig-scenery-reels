@@ -109,8 +109,8 @@ def pick_bgm():
     return random.choice(tracks)
 
 
-def wrap_text_for_drawtext(text, width=16):
-    return "\\n".join(textwrap.wrap(text, width=width))
+def wrap_lines(text, width=14):
+    return textwrap.wrap(text, width=width)
 
 
 def _escape_drawtext(text: str) -> str:
@@ -136,13 +136,20 @@ def build_reel(raw_video: Path, place: str, country: str, narration: str, bgm: P
     ]
 
     if narration:
-        narration_escaped = _escape_drawtext(wrap_text_for_drawtext(narration, width=14))
-        vf_parts.append(
-            f"drawtext=fontfile='{FONT_PATH}':text='{narration_escaped}':"
-            f"fontcolor=white:fontsize=42:line_spacing=10:"
-            f"box=1:boxcolor=black@0.45:boxborderw=20:"
-            f"x=(w-text_w)/2:y=160"
-        )
+        lines = wrap_lines(narration, width=14)
+        line_height = 58
+        top_y = 130
+        band_height = 70 + line_height * len(lines)
+        # 上部: 半透明の帯を1枚敷いてから、行ごとに別々のdrawtextで重ねる
+        vf_parts.append(f"drawbox=x=0:y=100:w={TARGET_W}:h={band_height}:color=black@0.45:t=fill")
+        for i, line in enumerate(lines):
+            line_escaped = _escape_drawtext(line)
+            y = top_y + i * line_height
+            vf_parts.append(
+                f"drawtext=fontfile='{FONT_PATH}':text='{line_escaped}':"
+                f"fontcolor=white:fontsize=42:"
+                f"x=(w-text_w)/2:y={y}"
+            )
 
     vf_parts += [
         "fade=t=in:st=0:d=0.5",
