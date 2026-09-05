@@ -38,11 +38,12 @@ def main():
         results = json.load(f)
 
     if not results:
-        text = "本日のリール生成: 0本(素材取得に失敗した可能性があります)"
+        text = "本日のリール生成: 0都市(素材取得に失敗した可能性があります)"
     else:
-        lines = [f"*本日の絶景リールが{len(results)}本できました。TikTokへの投稿をお願いします。*", ""]
+        lines = [f"*本日の都市ガイドリールが{len(results)}本できました。TikTokへの投稿をお願いします。*", ""]
         for r in results:
-            lines.append(f"・{r['place']}({r['country']})\n  {raw_url(r['file'])}")
+            spots_text = " / ".join(r.get("spots", []))
+            lines.append(f"・{r['city']}({r['country']}) — {spots_text}\n  {raw_url(r['file'])}")
         text = "\n".join(lines)
 
     payload = json.dumps({"text": text}).encode("utf-8")
