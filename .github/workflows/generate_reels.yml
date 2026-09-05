@@ -26,8 +26,7 @@ jobs:
       - name: Generate reels
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-          DAILY_COUNT: "5"
-          VIDEO_SECONDS: "15"
+          CITIES_PER_RUN: "1"
         run: python scripts/generate_reel.py
 
       - name: Commit & push generated videos
