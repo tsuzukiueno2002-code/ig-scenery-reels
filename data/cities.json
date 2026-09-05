@@ -1,0 +1,102 @@
+[
+  {
+    "city": "横浜",
+    "country": "日本",
+    "spots": [
+      {"name": "みなとみらい", "query": "yokohama minato mirai skyline night", "narration": "港町・横浜のシンボル、夜景が美しい未来都市エリア"},
+      {"name": "中華街", "query": "yokohama chinatown street", "narration": "日本最大級のチャイナタウン、食べ歩きが楽しい"},
+      {"name": "赤レンガ倉庫", "query": "yokohama red brick warehouse", "narration": "明治時代の倉庫を改装した、港のシンボル的スポット"},
+      {"name": "山下公園", "query": "yokohama harbor park bay view", "narration": "海沿いに広がる公園から、港の景色を一望できる"}
+    ]
+  },
+  {
+    "city": "浅草",
+    "country": "日本",
+    "spots": [
+      {"name": "浅草寺", "query": "sensoji temple asakusa tokyo", "narration": "都内最古の寺院、雷門の大提灯が出迎える"},
+      {"name": "仲見世通り", "query": "nakamise shopping street asakusa", "narration": "参道に並ぶ老舗の土産物店、江戸情緒あふれる通り"},
+      {"name": "東京スカイツリー", "query": "tokyo skytree view", "narration": "浅草からもよく見える、高さ634mの電波塔"},
+      {"name": "隅田川", "query": "sumida river tokyo boat", "narration": "屋形船が行き交う、下町情緒あふれる川沿い"}
+    ]
+  },
+  {
+    "city": "パリ",
+    "country": "フランス",
+    "spots": [
+      {"name": "エッフェル塔", "query": "eiffel tower paris aerial", "narration": "1889年の万博のために建てられた、パリの象徴"},
+      {"name": "凱旋門", "query": "arc de triomphe paris", "narration": "シャンゼリゼ通りの先にそびえる、勝利を讃える門"},
+      {"name": "ルーブル美術館", "query": "louvre museum paris pyramid", "narration": "世界最大級の美術館、ガラスのピラミッドが目印"},
+      {"name": "セーヌ川", "query": "seine river paris bridge", "narration": "パリを流れる川沿いは、世界遺産にも登録されている"}
+    ]
+  },
+  {
+    "city": "ローマ",
+    "country": "イタリア",
+    "spots": [
+      {"name": "コロッセオ", "query": "colosseum rome aerial", "narration": "古代ローマの闘技場、5万人を収容した巨大建築"},
+      {"name": "トレビの泉", "query": "trevi fountain rome", "narration": "コインを投げると再訪できるという伝説の泉"},
+      {"name": "バチカン市国", "query": "vatican city st peters basilica", "narration": "世界最小の独立国、サン・ピエトロ大聖堂がそびえる"},
+      {"name": "スペイン広場", "query": "spanish steps rome", "narration": "映画の舞台にもなった、ローマの人気待ち合わせスポット"}
+    ]
+  },
+  {
+    "city": "バルセロナ",
+    "country": "スペイン",
+    "spots": [
+      {"name": "サグラダファミリア", "query": "sagrada familia barcelona", "narration": "140年以上建設が続く、ガウディ未完の大聖堂"},
+      {"name": "グエル公園", "query": "park guell barcelona", "narration": "モザイクタイルが彩る、ガウディ設計の公園"},
+      {"name": "ランブラス通り", "query": "las ramblas barcelona street", "narration": "旧市街を貫く、大道芸人と屋台が並ぶ通り"},
+      {"name": "バルセロネータビーチ", "query": "barceloneta beach aerial", "narration": "都市部からすぐの、地中海に面した人気ビーチ"}
+    ]
+  },
+  {
+    "city": "ドバイ",
+    "country": "アラブ首長国連邦",
+    "spots": [
+      {"name": "ブルジュ・ハリファ", "query": "burj khalifa dubai aerial", "narration": "高さ828m、世界一高いビル"},
+      {"name": "パーム・ジュメイラ", "query": "palm jumeirah dubai aerial", "narration": "ヤシの木の形をした人工島、宇宙からも見える"},
+      {"name": "ドバイモール", "query": "dubai mall fountain", "narration": "世界最大級のショッピングモール、噴水ショーも人気"},
+      {"name": "デザートサファリ", "query": "dubai desert dunes safari", "narration": "都市のすぐそばに広がる、雄大な砂漠地帯"}
+    ]
+  },
+  {
+    "city": "シンガポール",
+    "country": "シンガポール",
+    "spots": [
+      {"name": "マリーナベイ・サンズ", "query": "marina bay sands singapore aerial", "narration": "屋上に船を乗せたような、シンガポールの新ランドマーク"},
+      {"name": "ガーデンズ・バイ・ザ・ベイ", "query": "gardens by the bay singapore", "narration": "巨大な人工樹木「スーパーツリー」が並ぶ植物園"},
+      {"name": "マーライオン公園", "query": "merlion park singapore", "narration": "獅子の頭と魚の体を持つ、シンガポールの象徴"},
+      {"name": "チャイナタウン", "query": "singapore chinatown street", "narration": "色鮮やかな街並みが続く、多民族国家らしいエリア"}
+    ]
+  },
+  {
+    "city": "ニューヨーク",
+    "country": "アメリカ",
+    "spots": [
+      {"name": "自由の女神", "query": "statue of liberty new york aerial", "narration": "1886年にフランスから贈られた、自由の象徴"},
+      {"name": "タイムズスクエア", "query": "times square new york night", "narration": "巨大な広告看板が輝く、眠らない街の中心"},
+      {"name": "セントラルパーク", "query": "central park new york aerial", "narration": "摩天楼に囲まれた、都会のオアシス"},
+      {"name": "ブルックリン橋", "query": "brooklyn bridge new york aerial", "narration": "1883年完成、マンハッタンとブルックリンを結ぶ名橋"}
+    ]
+  },
+  {
+    "city": "プラハ",
+    "country": "チェコ",
+    "spots": [
+      {"name": "プラハ城", "query": "prague castle aerial", "narration": "世界最大級の古城、千年以上の歴史を持つ"},
+      {"name": "カレル橋", "query": "charles bridge prague", "narration": "30体の聖人像が並ぶ、旧市街とお城を結ぶ石橋"},
+      {"name": "旧市街広場", "query": "prague old town square", "narration": "天文時計で有名な、中世の面影を残す広場"},
+      {"name": "ヴルタヴァ川", "query": "vltava river prague aerial", "narration": "「モルダウ川」としても知られる、街を流れる川"}
+    ]
+  },
+  {
+    "city": "ケープタウン",
+    "country": "南アフリカ",
+    "spots": [
+      {"name": "テーブルマウンテン", "query": "table mountain cape town aerial", "narration": "山頂が平らな、ケープタウンのシンボル的な山"},
+      {"name": "喜望峰", "query": "cape of good hope aerial", "narration": "大西洋とインド洋が出会うとされる、有名な岬"},
+      {"name": "ボルダーズビーチ", "query": "boulders beach penguins south africa", "narration": "野生のペンギンが暮らす、珍しいビーチ"},
+      {"name": "ウォーターフロント", "query": "cape town waterfront harbor", "narration": "港沿いに広がる、ショップやレストランが並ぶエリア"}
+    ]
+  }
+]
